@@ -116,7 +116,7 @@ class CommentsController < ActionController::Base # :nodoc:
   def index
     @pagy, @comments = pagy(Comment.all)
     pagy_headers_merge(@pagy)
-    raise StandardError, 'Limit header is incorrect' if response.headers['page-items'].to_i != Pagy::DEFAULT[:limit]
+    raise StandardError, 'Limit header is incorrect' if response.headers['page-items'].to_i != params.fetch('limit', Pagy::DEFAULT[:limit])
     render inline: TEMPLATE
   end
 end
